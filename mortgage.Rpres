@@ -1,0 +1,55 @@
+<style type="text/css">
+  .section .reveal .state-background {background: white;}
+  .section .reveal h1 {color: black; font-size: 2em; font-weight: bold;}
+  .section .reveal p {color: black;}
+</style>
+Mortgage Savings Calculator
+========================================================
+author: dgreene80
+date: August 23, 2015
+
+Resource    | Location
+------------|-----------------------------------------
+Shiny App   | <http://dgreene80.shinyapps.io/mortgage>  
+Github Repo | <http://github.com/dgreene80/mortgage>    
+
+Mortgage Savings Calculator
+========================================================
+### Description
+This simple calculator shows how much money you can save by paying off your mortgage early. If you make bigger payments regularly, then you will pay less interest and save a lot of money!
+
+The application calculates the difference between the total interest paid over the life of a 30-year loan versus a 15-year loan.
+
+### Assumptions
+- The amount of each loan is the same
+- The interest rate for each loan is the same
+- There is no early-payment penalty
+
+Mortgage Savings Calculator
+========================================================
+The application includes input controls on the left, instructions and graphs on the right, and the calculated total savings in red on the bottom left, as seen in this image:
+![](mortgage.gif)
+
+Mortgage Savings Calculator
+========================================================
+### Instructions
+This simple calculator shows how much money you can save by paying off your mortgage early. If you make bigger payments regularly, then you will pay less interest and save a lot of money!
+
+1. Enter your loan amount in dollars
+2. Select the loan interest rate using the slider
+3. Select Monthly or Biweekly payment frequency
+4. View your total savings in red on the bottom left
+
+Mortgage Savings Calculator
+========================================================
+Here is a simplified version of the calculation performed by the application to determine total savings. This example uses a loan amount of $500,000 and an APR of 8%.
+```{r}
+loan_amt <- 500000; apr <- 8;
+i <- apr/(12 * 100)
+pymt_30y <- loan_amt * i / (1-(1+i)^(-360))
+pymt_15y <- loan_amt * i / (1-(1+i)^(-180))
+int_30y <- (pymt_30y * 360) - loan_amt
+int_15y <- (pymt_15y * 180) - loan_amt
+savings <- int_30y - int_15y; round(savings)
+```
+
